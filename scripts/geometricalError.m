@@ -25,16 +25,9 @@ for iTest=1:length(squareError)
         calibrationParameters, ...
         auxiliarCameraParameters.ReprojectedPoints);
 
-    parametersToCheck = {'IntrinsicMatrix', 'TranslationVectors', 'RotationVectors'};
-    for iParameter=1:length(parametersToCheck)
-        parameterToCheck = parametersToCheck{iParameter};
-        difference = recalculatedCameraParameters.(parameterToCheck) - cameraParams.(parameterToCheck);
-        absDifference = abs(difference);
-        maxDifference = max(absDifference(:));
-        maxError.(parameterToCheck) = maxDifference;
-        errorStruct.(parameterToCheck) = difference;
-    end
-    results{iTest} = errorStruct;
+   differenceStruct = differenceBetweenCameraParams(recalculatedCameraParameters,cameraParams);
+   
+   results{iTest} = differenceStruct;
 end
 %%
 errorMatrix = [];

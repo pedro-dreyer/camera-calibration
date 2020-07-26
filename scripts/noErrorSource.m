@@ -18,12 +18,6 @@ recalculatedCameraParameters = calculateCameraParametersPoints(...
     calibrationParameters, ...
     auxiliarCameraParameters.ReprojectedPoints);
 
-maxErrorTable = table();
-parametersToCheck = {'IntrinsicMatrix', 'TranslationVectors', 'RotationVectors'};
-for iParameter=1:length(parametersToCheck)
-    parameterToCheck = parametersToCheck{iParameter};
-    absDifference = abs(recalculatedCameraParameters.(parameterToCheck) - cameraParams.(parameterToCheck));
-    maxDifference = max(absDifference(:));
-    maxErrorTable.(parameterToCheck) = maxDifference;
-end
-maxErrorTable
+[~, maxError] = differenceBetweenCameraParams(recalculatedCameraParameters,cameraParams);
+
+maxError
